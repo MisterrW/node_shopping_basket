@@ -40,13 +40,18 @@ var basket = {
     var total = this.total();
     var toIterate = this.items.slice();
     for(var item of toIterate){
+      var matched = false;
       var match = toIterate.shift();
       for(var item of toIterate){
-        if(match.description === item.description) {
-          if(match.price >= item.price){
-            total -= item.price;
-          } else {
-            total -= match.price;
+        if(matched === false){
+          if(match.description === item.description) {
+            matched = true;
+            if(match.price >= item.price){
+              total -= item.price;
+            } else {
+              total -= match.price;
+            }
+            // toIterate.splice(toIterate.indexOf(item), 1);
           }
         }
       }
