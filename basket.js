@@ -39,9 +39,14 @@ var basket = {
   bogofDiscount: function(){
     var total = this.total();
     var toIterate = this.items.slice();
+
+    toIterate.sort(function(a, b) {
+        return parseFloat(a.price) - parseFloat(b.price);
+    });
+
     for(var item of toIterate){
       var matched = false;
-      var match = toIterate.shift();
+      var match = toIterate.pop();
       for(var item of toIterate){
         if(matched === false){
           if(match.description === item.description) {
@@ -51,7 +56,7 @@ var basket = {
             } else {
               total -= match.price;
             }
-            // toIterate.splice(toIterate.indexOf(item), 1);
+            toIterate.splice(toIterate.indexOf(item), 1);
           }
         }
       }

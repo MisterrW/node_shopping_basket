@@ -45,16 +45,16 @@ describe('basket', function(){
   it('bogof discount only matvhes once', function(){
     basket.items = [];
     basket.add(new Item("Beans", 0.65));
-    basket.add(new Item("Cereal", 1.50));
-    basket.add(new Item("Cereal", 1.50));
-    basket.add(new Item("Cereal", 1.50));
-    assert.equal(basket.bogofDiscount(), 3.65);
+    basket.add(new Item("Cereal", 1.40));
+    basket.add(new Item("Cereal", 1.40));
+    basket.add(new Item("Cereal", 0.80));
+    assert.equal(basket.bogofDiscount(), 3.45);
     basket.items = [];
     basket.add(new Item("Beans", 0.65));
+    basket.add(new Item("Cereal", 1.20));
     basket.add(new Item("Cereal", 1.50));
     basket.add(new Item("Cereal", 1.50));
-    basket.add(new Item("Cereal", 1.50));
-    basket.add(new Item("Cereal", 1.50));
+    basket.add(new Item("Cereal", 1.30));
     assert.equal(basket.bogofDiscount(), 3.65);
   })
 })
