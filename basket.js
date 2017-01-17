@@ -12,6 +12,13 @@ var basket = {
     }
   },
 
+  getTotalWithDiscounts: function(customer){
+    var total = this.total();
+    var bogof = this.bogofDiscount(total);
+    var tenPC = this.tenPcDiscount(bogof);
+    var loyalty = this.customerDiscount(customer, tenPC);
+  },
+
   total: function(){
     var total = 0;
     for(item of this.items) {
@@ -20,24 +27,21 @@ var basket = {
     return this.round(total);
   },
 
-  tenPcDiscount: function(){
-    var total = this.total();
-    if(this.total() >= 20){
+  tenPcDiscount: function(total){
+    if(total >= 20){
       total = this.round(total*0.9);
     }
     return this.round(total);
   },
 
-  customerDiscount: function(customer){
-    var total = this.tenPcDiscount();
+  customerDiscount: function(customer, total){
     if(customer.loyal === true){
       total = this.round(total * 0.95);
     }
     return this.round(total);
   },
 
-  bogofDiscount: function(){
-    var total = this.total();
+  bogofDiscount: function(total){
     var toIterate = this.items.slice();
 
     toIterate.sort(function(a, b) {
